@@ -4,6 +4,7 @@ import QuickSortVisualizer from './components/QuickSortVisualizer';
 import SelectionSortVisualizer from './components/SelectionSortVisualizer';
 import BubbleSortVisualizer from './components/BubbleSortVisualizer';
 import InsertionSortVisualizer from './components/InsertionSortVisualizer';
+import TwoSumVisualizer from './components/TwoSumVisualizer';
 
 // Define theme for consistent styling
 const theme = {
@@ -199,15 +200,23 @@ const App: React.FC = () => {
       timeComplexity: "Best: O(n), Average: O(n²), Worst: O(n²)",
       spaceComplexity: "O(1)",
       inventor: "Unknown, but has been in use since at least the 1950s",
-      useCases: "Bubble Sort is primarily used as an educational tool to introduce sorting algorithms. It's rarely used in production due to its inefficiency with large data sets."
+      useCases: "Bubble Sort is primarily used as an educational tool to introduce sorting algorithms. It's simple to understand and implement but inefficient for large datasets."
     },
     insertionsort: {
       title: "Insertion Sort Algorithm",
-      description: "Insertion Sort builds the final sorted array one item at a time. It takes one element from the input data in each iteration and finds its correct position in the already sorted part of the array.",
+      description: "Insertion Sort is a simple sorting algorithm that builds the final sorted array one item at a time. It is efficient for small data sets and is often used as part of more sophisticated algorithms.",
       timeComplexity: "Best: O(n), Average: O(n²), Worst: O(n²)",
       spaceComplexity: "O(1)",
       inventor: "Unknown, but has been in use since at least the 1950s",
-      useCases: "Insertion Sort is efficient for small data sets and nearly-sorted arrays. It's often used as part of more complex algorithms like Timsort."
+      useCases: "Insertion Sort is used when the data set is nearly sorted or when the input array is small. It's also used in hybrid sorting algorithms like Timsort."
+    },
+    twosum: {
+      title: "Two Sum Algorithm",
+      description: "The Two Sum algorithm finds two numbers in an array that add up to a specific target sum. It's a common problem in computer science interviews and demonstrates efficient use of hash maps.",
+      timeComplexity: "O(n) where n is the number of elements in the array",
+      spaceComplexity: "O(n) for storing the hash map",
+      inventor: "Commonly attributed to computer science interview questions, no specific inventor",
+      useCases: "The Two Sum problem is used in various applications like finding pairs in financial data, detecting complementary elements, and as a building block for more complex algorithms."
     }
   };
 
@@ -218,10 +227,10 @@ const App: React.FC = () => {
         <Header>
           <TitleContainer>
             <Title>Algorithm Visualizer</Title>
-            <Subtitle>Interactive visualization of Data Structures and Algorithms</Subtitle>
+            <Subtitle>Interactive visualization of common algorithms</Subtitle>
           </TitleContainer>
         </Header>
-
+        
         <AlgorithmSelector>
           <AlgorithmButton 
             active={algorithm === 'quicksort'} 
@@ -247,24 +256,31 @@ const App: React.FC = () => {
           >
             Insertion Sort
           </AlgorithmButton>
+          <AlgorithmButton 
+            active={algorithm === 'twosum'} 
+            onClick={() => setAlgorithm('twosum')}
+          >
+            Two Sum
+          </AlgorithmButton>
         </AlgorithmSelector>
-
+        
         <InfoCard>
           <InfoTitle>{algorithmInfo[algorithm].title}</InfoTitle>
           <InfoText>{algorithmInfo[algorithm].description}</InfoText>
           <InfoText><strong>Time Complexity:</strong> {algorithmInfo[algorithm].timeComplexity}</InfoText>
           <InfoText><strong>Space Complexity:</strong> {algorithmInfo[algorithm].spaceComplexity}</InfoText>
-          <InfoText><strong>Invented by:</strong> {algorithmInfo[algorithm].inventor}</InfoText>
+          <InfoText><strong>Inventor:</strong> {algorithmInfo[algorithm].inventor}</InfoText>
           <InfoText><strong>Use Cases:</strong> {algorithmInfo[algorithm].useCases}</InfoText>
         </InfoCard>
-
+        
         {algorithm === 'quicksort' && <QuickSortVisualizer />}
         {algorithm === 'selectionsort' && <SelectionSortVisualizer />}
         {algorithm === 'bubblesort' && <BubbleSortVisualizer />}
         {algorithm === 'insertionsort' && <InsertionSortVisualizer />}
-
+        {algorithm === 'twosum' && <TwoSumVisualizer />}
+        
         <Footer>
-          &copy; {new Date().getFullYear()} Algorithm Visualizer - An educational tool for learning sorting algorithms
+          &copy; {new Date().getFullYear()} Algorithm Visualizer | Created for educational purposes
         </Footer>
       </AppContainer>
     </ThemeProvider>
