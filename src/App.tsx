@@ -5,6 +5,7 @@ import SelectionSortVisualizer from './components/SelectionSortVisualizer';
 import BubbleSortVisualizer from './components/BubbleSortVisualizer';
 import InsertionSortVisualizer from './components/InsertionSortVisualizer';
 import TwoSumVisualizer from './components/TwoSumVisualizer';
+import MergeSortVisualizer from './components/MergeSortVisualizer';
 
 // Define theme for consistent styling
 const theme = {
@@ -200,7 +201,7 @@ const App: React.FC = () => {
       timeComplexity: "Best: O(n), Average: O(n²), Worst: O(n²)",
       spaceComplexity: "O(1)",
       inventor: "Unknown, but has been in use since at least the 1950s",
-      useCases: "Bubble Sort is primarily used as an educational tool to introduce sorting algorithms. It's simple to understand and implement but inefficient for large datasets."
+      useCases: "Bubble Sort is primarily used as an educational tool to introduce sorting algorithms. It's simple to understand but inefficient for large datasets."
     },
     insertionsort: {
       title: "Insertion Sort Algorithm",
@@ -210,13 +211,21 @@ const App: React.FC = () => {
       inventor: "Unknown, but has been in use since at least the 1950s",
       useCases: "Insertion Sort is used when the data set is nearly sorted or when the input array is small. It's also used in hybrid sorting algorithms like Timsort."
     },
+    mergesort: {
+      title: "Merge Sort Algorithm",
+      description: "Merge Sort is an efficient, stable, comparison-based, divide and conquer algorithm. It divides the input array into two halves, recursively sorts them, and then merges the sorted halves.",
+      timeComplexity: "Best: O(n log n), Average: O(n log n), Worst: O(n log n)",
+      spaceComplexity: "O(n)",
+      inventor: "John von Neumann in 1945",
+      useCases: "Merge Sort is widely used in external sorting, where data doesn't fit into memory and needs to be sorted in chunks. It's also used in various programming language standard libraries."
+    },
     twosum: {
       title: "Two Sum Algorithm",
-      description: "The Two Sum algorithm finds two numbers in an array that add up to a specific target sum. It's a common problem in computer science interviews and demonstrates efficient use of hash maps.",
-      timeComplexity: "O(n) where n is the number of elements in the array",
-      spaceComplexity: "O(n) for storing the hash map",
-      inventor: "Commonly attributed to computer science interview questions, no specific inventor",
-      useCases: "The Two Sum problem is used in various applications like finding pairs in financial data, detecting complementary elements, and as a building block for more complex algorithms."
+      description: "Two Sum is a common algorithmic problem where you need to find two numbers in an array that add up to a specific target value. This visualization demonstrates both the brute force approach (O(n²)) and the optimized hash map approach (O(n)).",
+      timeComplexity: "Brute Force: O(n²), Optimized: O(n)",
+      spaceComplexity: "Brute Force: O(1), Optimized: O(n)",
+      inventor: "Common interview problem, no specific inventor",
+      useCases: "Two Sum is a fundamental algorithm used in various applications like financial analysis, data processing, and as a building block for more complex algorithms like 3Sum and 4Sum."
     }
   };
 
@@ -227,7 +236,7 @@ const App: React.FC = () => {
         <Header>
           <TitleContainer>
             <Title>Algorithm Visualizer</Title>
-            <Subtitle>Interactive visualization of common algorithms</Subtitle>
+            <Subtitle>Interactive visualizations of common algorithms</Subtitle>
           </TitleContainer>
         </Header>
         
@@ -237,6 +246,12 @@ const App: React.FC = () => {
             onClick={() => setAlgorithm('quicksort')}
           >
             Quick Sort
+          </AlgorithmButton>
+          <AlgorithmButton 
+            active={algorithm === 'mergesort'} 
+            onClick={() => setAlgorithm('mergesort')}
+          >
+            Merge Sort
           </AlgorithmButton>
           <AlgorithmButton 
             active={algorithm === 'selectionsort'} 
@@ -269,18 +284,19 @@ const App: React.FC = () => {
           <InfoText>{algorithmInfo[algorithm].description}</InfoText>
           <InfoText><strong>Time Complexity:</strong> {algorithmInfo[algorithm].timeComplexity}</InfoText>
           <InfoText><strong>Space Complexity:</strong> {algorithmInfo[algorithm].spaceComplexity}</InfoText>
-          <InfoText><strong>Inventor:</strong> {algorithmInfo[algorithm].inventor}</InfoText>
+          <InfoText><strong>Invented by:</strong> {algorithmInfo[algorithm].inventor}</InfoText>
           <InfoText><strong>Use Cases:</strong> {algorithmInfo[algorithm].useCases}</InfoText>
         </InfoCard>
         
         {algorithm === 'quicksort' && <QuickSortVisualizer />}
+        {algorithm === 'mergesort' && <MergeSortVisualizer />}
         {algorithm === 'selectionsort' && <SelectionSortVisualizer />}
         {algorithm === 'bubblesort' && <BubbleSortVisualizer />}
         {algorithm === 'insertionsort' && <InsertionSortVisualizer />}
         {algorithm === 'twosum' && <TwoSumVisualizer />}
         
         <Footer>
-          &copy; {new Date().getFullYear()} Algorithm Visualizer | Created for educational purposes
+          &copy; {new Date().getFullYear()} Algorithm Visualizer - Created for educational purposes
         </Footer>
       </AppContainer>
     </ThemeProvider>
