@@ -6,6 +6,9 @@ import BubbleSortVisualizer from './components/BubbleSortVisualizer';
 import InsertionSortVisualizer from './components/InsertionSortVisualizer';
 import TwoSumVisualizer from './components/TwoSumVisualizer';
 import MergeSortVisualizer from './components/MergeSortVisualizer';
+import LongestConsecutiveSequenceVisualizer from './components/LongestConsecutiveSequenceVisualizer';
+import RecursionVisualizer from './components/RecursionVisualizer';
+import BinarySearchVisualizer from './components/BinarySearchVisualizer';
 
 // Define theme for consistent styling
 const theme = {
@@ -176,9 +179,17 @@ interface Algorithms {
 }
 
 const App: React.FC = () => {
-  const [algorithm, setAlgorithm] = useState<string>('quicksort');
+  const [algorithm, setAlgorithm] = useState<string>('binarysearch');
 
   const algorithmInfo: Algorithms = {
+    binarysearch: {
+      title: "Binary Search Algorithm",
+      description: "Binary Search is a searching algorithm that finds the position of a target value within a sorted array by repeatedly dividing the search space in half.",
+      timeComplexity: "O(log n)",
+      spaceComplexity: "O(1)",
+      inventor: "Unknown",
+      useCases: "Finding elements in sorted arrays, dictionary lookups"
+    },
     quicksort: {
       title: "Quick Sort Algorithm",
       description: "Quick Sort is a divide-and-conquer algorithm that works by selecting a 'pivot' element and partitioning the array around the pivot. It has an average time complexity of O(n log n) and is often faster in practice than other O(n log n) algorithms like Merge Sort.",
@@ -226,6 +237,22 @@ const App: React.FC = () => {
       spaceComplexity: "Brute Force: O(1), Optimized: O(n)",
       inventor: "Common interview problem, no specific inventor",
       useCases: "Two Sum is a fundamental algorithm used in various applications like financial analysis, data processing, and as a building block for more complex algorithms like 3Sum and 4Sum."
+    },
+    longestconsecutivesequence: {
+      title: "Longest Consecutive Sequence Algorithm",
+      description: "The Longest Consecutive Sequence algorithm finds the length of the longest consecutive elements sequence in an unsorted array. It uses a hash set for O(1) lookups to efficiently check for consecutive elements.",
+      timeComplexity: "O(n) where n is the number of elements in the array",
+      spaceComplexity: "O(n) for storing elements in the hash set",
+      inventor: "Common interview problem, no specific inventor",
+      useCases: "This algorithm is useful in scenarios where you need to find patterns in data, such as analyzing stock price movements, finding streaks in sports statistics, or identifying continuous ranges in any dataset."
+    },
+    recursion: {
+      title: "Recursion Visualization",
+      description: "Recursion is a programming technique where a function calls itself to solve a problem. This visualization demonstrates how recursive algorithms like factorial, Fibonacci, and tree traversals work by showing the call stack and execution flow.",
+      timeComplexity: "Varies by algorithm (Factorial: O(n), Fibonacci: O(2^n), Tree Traversal: O(n))",
+      spaceComplexity: "Varies by algorithm (Typically O(n) for the call stack)",
+      inventor: "Recursion as a concept dates back to ancient mathematics, but was formalized in computer science in the 1950s",
+      useCases: "Recursion is used in many algorithms like tree/graph traversal, divide and conquer algorithms, and dynamic programming. It's essential for solving problems that can be broken down into similar subproblems."
     }
   };
 
@@ -241,6 +268,12 @@ const App: React.FC = () => {
         </Header>
         
         <AlgorithmSelector>
+          <AlgorithmButton 
+            active={algorithm === 'binarysearch'} 
+            onClick={() => setAlgorithm('binarysearch')}
+          >
+            Binary Search
+          </AlgorithmButton>
           <AlgorithmButton 
             active={algorithm === 'quicksort'} 
             onClick={() => setAlgorithm('quicksort')}
@@ -277,6 +310,18 @@ const App: React.FC = () => {
           >
             Two Sum
           </AlgorithmButton>
+          <AlgorithmButton 
+            active={algorithm === 'longestconsecutivesequence'} 
+            onClick={() => setAlgorithm('longestconsecutivesequence')}
+          >
+            Longest Consecutive Sequence
+          </AlgorithmButton>
+          <AlgorithmButton 
+            active={algorithm === 'recursion'} 
+            onClick={() => setAlgorithm('recursion')}
+          >
+            Recursion
+          </AlgorithmButton>
         </AlgorithmSelector>
         
         <InfoCard>
@@ -288,12 +333,15 @@ const App: React.FC = () => {
           <InfoText><strong>Use Cases:</strong> {algorithmInfo[algorithm].useCases}</InfoText>
         </InfoCard>
         
+        {algorithm === 'binarysearch' && <BinarySearchVisualizer />}
         {algorithm === 'quicksort' && <QuickSortVisualizer />}
         {algorithm === 'mergesort' && <MergeSortVisualizer />}
         {algorithm === 'selectionsort' && <SelectionSortVisualizer />}
         {algorithm === 'bubblesort' && <BubbleSortVisualizer />}
         {algorithm === 'insertionsort' && <InsertionSortVisualizer />}
         {algorithm === 'twosum' && <TwoSumVisualizer />}
+        {algorithm === 'longestconsecutivesequence' && <LongestConsecutiveSequenceVisualizer />}
+        {algorithm === 'recursion' && <RecursionVisualizer />}
         
         <Footer>
           &copy; {new Date().getFullYear()} Algorithm Visualizer - Created for educational purposes
