@@ -9,6 +9,9 @@ import MergeSortVisualizer from './components/MergeSortVisualizer';
 import LongestConsecutiveSequenceVisualizer from './components/LongestConsecutiveSequenceVisualizer';
 import RecursionVisualizer from './components/RecursionVisualizer';
 import BinarySearchVisualizer from './components/BinarySearchVisualizer';
+import GeminiAssistant from './components/GeminiAssistant';
+import GeminiCodeGenerator from './components/GeminiCodeGenerator';
+import GeminiExplanationDemo from './components/GeminiExplanationDemo';
 
 // Define theme for consistent styling
 const theme = {
@@ -332,6 +335,19 @@ const App: React.FC = () => {
           <InfoText><strong>Invented by:</strong> {algorithmInfo[algorithm].inventor}</InfoText>
           <InfoText><strong>Use Cases:</strong> {algorithmInfo[algorithm].useCases}</InfoText>
         </InfoCard>
+        
+        {/* Gemini-powered AI Assistant */}
+        <GeminiAssistant 
+          algorithm={algorithm}
+          timeComplexity={algorithmInfo[algorithm].timeComplexity}
+          spaceComplexity={algorithmInfo[algorithm].spaceComplexity}
+        />
+        
+        {/* Gemini-powered Code Generator */}
+        <GeminiCodeGenerator algorithm={algorithm} />
+        
+        {/* Show Gemini explanation demo for binary search */}
+        {algorithm === 'binarysearch' && <GeminiExplanationDemo />}
         
         {algorithm === 'binarysearch' && <BinarySearchVisualizer />}
         {algorithm === 'quicksort' && <QuickSortVisualizer />}
